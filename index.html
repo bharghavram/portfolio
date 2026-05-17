@@ -189,6 +189,16 @@
       color: white;
       border: 1px solid rgba(255,255,255,0.3);
     }
+    .badge-green {
+      background: rgba(16,185,129,0.12);
+      color: #065f46;
+      border: 1px solid rgba(16,185,129,0.3);
+    }
+    .badge-purple {
+      background: rgba(139,92,246,0.12);
+      color: #4c1d95;
+      border: 1px solid rgba(139,92,246,0.3);
+    }
 
     /* ─── Cards ──────────────────────────────────────────── */
     .card {
@@ -200,6 +210,8 @@
     }
     .card:hover { box-shadow: var(--shadow-hover); }
     .card-accent-left { border-left: 4px solid var(--accent); }
+    .card-accent-green { border-left: 4px solid #10b981; }
+    .card-accent-purple { border-left: 4px solid #8b5cf6; }
     .card-header { padding: 1.5rem 1.5rem 0.75rem; }
     .card-content { padding: 0.75rem 1.5rem 1.5rem; }
     .card-title { font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem; }
@@ -221,7 +233,6 @@
       background: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663196049327/2feACoVRBtZxvmdPdW5c6X/hero-background-8A5vjrrQ2sPjLiAYFbDvco.webp') center/cover no-repeat;
       opacity: 0.07;
     }
-    /* Decorative accent ring */
     #hero::after {
       content: '';
       position: absolute;
@@ -314,6 +325,39 @@
     .section-dark .section-title { color: white; }
     .section-dark .section-title::after { background: var(--accent); }
 
+    /* ─── Experience sub-section headers ─────────────────── */
+    .exp-sub-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .exp-sub-header:first-of-type { margin-top: 0; }
+    .exp-sub-title {
+      font-family: var(--font-serif);
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .exp-sub-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .exp-sub-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+    .exp-sub-icon.green { background: rgba(16,185,129,0.12); color: #10b981; }
+    .exp-sub-icon.purple { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+
     /* ─── Experience ─────────────────────────────────────── */
     .exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
     .exp-bullets { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
@@ -338,6 +382,21 @@
     .project-achievements ul { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.875rem; color: rgba(44,62,80,0.8); }
     .project-achievements li::before { content: '• '; color: var(--accent); font-weight: 700; }
     .badge-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+
+    /* Projects summary banner */
+    .projects-banner {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, rgba(0,217,255,0.08) 0%, rgba(26,42,74,0.04) 100%);
+      border: 1px solid rgba(0,217,255,0.2);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .projects-banner i { color: var(--accent); font-size: 1.5rem; }
+    .projects-banner p { font-size: 1rem; font-weight: 600; color: var(--primary); }
+    .projects-banner span { color: var(--accent); }
 
     /* ─── Skills ─────────────────────────────────────────── */
     .skills-grid {
@@ -380,16 +439,6 @@
       transition: var(--transition);
     }
     .soft-skill-pill:hover { background: var(--accent); color: var(--primary); border-color: var(--accent); }
-    .skills-photo-wrap { display: flex; justify-content: flex-end; align-items: flex-start; }
-    .skills-photo {
-      width: 16rem;
-      height: 16rem;
-      border-radius: var(--radius);
-      object-fit: cover;
-      border: 4px solid var(--accent);
-      box-shadow: var(--shadow-hover);
-    }
-    @media (min-width: 768px) { .skills-photo { width: 20rem; height: 20rem; } }
 
     /* ─── Education ──────────────────────────────────────── */
     .edu-list { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -413,6 +462,17 @@
       border-top: 1px solid rgba(255,255,255,0.08);
       text-align: center;
       font-size: 0.875rem;
+    }
+
+    /* ─── Smoky Cursor ───────────────────────────────────── */
+    #smoke-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
     }
 
     /* ─── Entrance animations ────────────────────────────── */
@@ -491,36 +551,45 @@
 <section id="experience">
   <div class="container">
     <h2 class="section-title fade-up">Professional Experience</h2>
+
+    <!-- ── Project Experience ── -->
+    <div class="exp-sub-header fade-up">
+      <div class="exp-sub-icon green"><i class="fa-solid fa-laptop-code"></i></div>
+      <span class="exp-sub-title">Project Experience</span>
+      <div class="exp-sub-line"></div>
+    </div>
     <div class="exp-list">
 
-      <div class="card card-accent-left fade-up">
+      <div class="card card-accent-green fade-up">
         <div class="card-header">
           <div class="card-meta">
             <div>
               <div class="card-title">Freelance Python &amp; AI Developer</div>
               <div class="card-desc">Self-Employed | Remote</div>
             </div>
-            <span class="badge">Jun 2025 – Present</span>
+            <span class="badge badge-green">Jun 2025 – Present</span>
           </div>
         </div>
         <div class="card-content">
           <ul class="exp-bullets">
             <li class="exp-bullet">Delivered AI-based solutions to 5+ clients, developing Machine Learning and Deep Learning models for prediction, classification, and anomaly detection using Python.</li>
             <li class="exp-bullet">Built Generative AI applications using Large Language Models (LLMs), including document Q&amp;A systems, conversational assistants, and vector-database retrieval pipelines.</li>
-            <li class="exp-bullet">Automated a daily stock-market data segregation system for a trading client, reducing manual processing and enabling structured analysis workflows.</li>
-            <li class="exp-bullet">Conducted Generative AI training sessions for 2 batches of learners, covering prompt engineering, LLM applications, and real-world project implementation.</li>
+            <li class="exp-bullet">Automated a daily stock-market data segregation system for a trading client using Pandas, Streamlit, and Python, reducing manual processing and enabling structured analysis workflows.</li>
+            <li class="exp-bullet">Developed a full-stack website for a sports company using ReactJS, delivering a responsive and performant user experience.</li>
+            <li class="exp-bullet">Built a hybrid house price prediction system combining Machine Learning and Deep Learning for a Master's research project.</li>
+            <li class="exp-bullet">Implemented loan eligibility prediction using Qwen3.5 with LoRA fine-tuning for efficient, domain-specific inference.</li>
           </ul>
         </div>
       </div>
 
-      <div class="card card-accent-left fade-up">
+      <div class="card card-accent-green fade-up">
         <div class="card-header">
           <div class="card-meta">
             <div>
               <div class="card-title">Software Development Engineer (SDE) Intern</div>
               <div class="card-desc">SHNOOR International LLC</div>
             </div>
-            <span class="badge">Jan 2026 – Mar 2026</span>
+            <span class="badge badge-green">Jan 2026 – Mar 2026</span>
           </div>
         </div>
         <div class="card-content">
@@ -534,6 +603,54 @@
       </div>
 
     </div>
+
+    <!-- ── Trainee Experience ── -->
+    <div class="exp-sub-header fade-up" style="margin-top:3rem;">
+      <div class="exp-sub-icon purple"><i class="fa-solid fa-chalkboard-user"></i></div>
+      <span class="exp-sub-title">Trainee Experience</span>
+      <div class="exp-sub-line"></div>
+    </div>
+    <div class="exp-list">
+
+      <div class="card card-accent-purple fade-up">
+        <div class="card-header">
+          <div class="card-meta">
+            <div>
+              <div class="card-title">AI Fullstack Trainer — Batch 1</div>
+              <div class="card-desc">Generative AI Training Program | In-person / Remote</div>
+            </div>
+            <span class="badge badge-purple">Completed</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <ul class="exp-bullets">
+            <li class="exp-bullet">Conducted a complete AI Fullstack course covering Python, Machine Learning, Deep Learning, and Generative AI from scratch to deployment.</li>
+            <li class="exp-bullet">Guided learners through hands-on projects, prompt engineering techniques, LLM application development, and real-world implementation scenarios.</li>
+            <li class="exp-bullet">Designed curriculum covering end-to-end AI development lifecycle including data processing, model building, and API integration.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card card-accent-purple fade-up">
+        <div class="card-header">
+          <div class="card-meta">
+            <div>
+              <div class="card-title">Generative AI Trainer — Batches 2 &amp; 3</div>
+              <div class="card-desc">Generative AI Training Program | In-person / Remote</div>
+            </div>
+            <span class="badge badge-purple">2 Batches Completed</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <ul class="exp-bullets">
+            <li class="exp-bullet">Conducted 2 dedicated Generative AI training batches, covering LLM fundamentals, prompt engineering, RAG pipelines, and agent-based architectures.</li>
+            <li class="exp-bullet">Delivered practical sessions on integrating LLMs into real-world applications using LangChain, LangFlow, and vector databases.</li>
+            <li class="exp-bullet">Mentored learners through capstone projects, helping them build production-ready GenAI solutions.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -541,9 +658,131 @@
 <section id="projects" class="section-alt">
   <div class="container">
     <h2 class="section-title fade-up">Featured Projects</h2>
+
+    <div class="projects-banner fade-up">
+      <i class="fa-solid fa-trophy"></i>
+      <p>Delivered <span>5+ client solutions</span> across AI, ML, full-stack development, and data automation domains.</p>
+    </div>
+
     <div class="projects-grid">
 
       <!-- Project 1 -->
+      <div class="card project-card fade-up">
+        <div class="card-header">
+          <div class="project-card-top">
+            <i class="fa-solid fa-chart-line project-icon"></i>
+            <span class="badge-outline badge">Python, Pandas, Streamlit</span>
+          </div>
+          <div class="card-title">Stock Market Data Segregation</div>
+        </div>
+        <div class="card-content">
+          <p class="project-desc">Automated daily stock-market data segregation system for a trading client. Eliminates manual processing overhead and enables structured analysis workflows for financial decision-making.</p>
+          <div class="project-achievements">
+            <strong>Key Achievements:</strong>
+            <ul>
+              <li>Automated daily data collection and segregation pipeline</li>
+              <li>Built interactive Streamlit dashboard for real-time monitoring</li>
+              <li>Eliminated manual processing, saving significant time daily</li>
+              <li>Improved data accuracy and consistency for trading decisions</li>
+            </ul>
+          </div>
+          <div class="badge-row">
+            <span class="badge badge-outline">Python</span>
+            <span class="badge badge-outline">Pandas</span>
+            <span class="badge badge-outline">Streamlit</span>
+            <span class="badge badge-outline">Automation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="card project-card fade-up">
+        <div class="card-header">
+          <div class="project-card-top">
+            <i class="fa-solid fa-globe project-icon"></i>
+            <span class="badge-outline badge">ReactJS, Fullstack</span>
+          </div>
+          <div class="card-title">Sports Company Website</div>
+        </div>
+        <div class="card-content">
+          <p class="project-desc">Full-stack web presence for a sports company, built with ReactJS. Focused on high performance, responsive design, and engaging user experience to showcase the brand and its offerings.</p>
+          <div class="project-achievements">
+            <strong>Key Achievements:</strong>
+            <ul>
+              <li>Delivered complete responsive frontend using ReactJS</li>
+              <li>Implemented component-based architecture for maintainability</li>
+              <li>Integrated backend APIs for dynamic content management</li>
+              <li>Optimized performance and cross-browser compatibility</li>
+            </ul>
+          </div>
+          <div class="badge-row">
+            <span class="badge badge-outline">ReactJS</span>
+            <span class="badge badge-outline">JavaScript</span>
+            <span class="badge badge-outline">CSS</span>
+            <span class="badge badge-outline">REST APIs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="card project-card fade-up">
+        <div class="card-header">
+          <div class="project-card-top">
+            <i class="fa-solid fa-house project-icon"></i>
+            <span class="badge-outline badge">ML, Deep Learning</span>
+          </div>
+          <div class="card-title">Hybrid House Price Prediction</div>
+        </div>
+        <div class="card-content">
+          <p class="project-desc">Research-grade hybrid house price prediction system combining classical Machine Learning and Deep Learning, developed for a Master's thesis. Achieves superior accuracy by leveraging strengths of both paradigms.</p>
+          <div class="project-achievements">
+            <strong>Key Achievements:</strong>
+            <ul>
+              <li>Designed hybrid architecture blending ML regression with neural networks</li>
+              <li>Performed in-depth feature engineering and EDA on real estate datasets</li>
+              <li>Achieved improved prediction accuracy over single-model baselines</li>
+              <li>Produced academic-grade documentation and model evaluation report</li>
+            </ul>
+          </div>
+          <div class="badge-row">
+            <span class="badge badge-outline">Python</span>
+            <span class="badge badge-outline">TensorFlow</span>
+            <span class="badge badge-outline">Scikit-learn</span>
+            <span class="badge badge-outline">Pandas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="card project-card fade-up">
+        <div class="card-header">
+          <div class="project-card-top">
+            <i class="fa-solid fa-robot project-icon"></i>
+            <span class="badge-outline badge">LLM, LoRA Fine-tuning</span>
+          </div>
+          <div class="card-title">Loan Eligibility Prediction (Qwen3.5 + LoRA)</div>
+        </div>
+        <div class="card-content">
+          <p class="project-desc">Fine-tuned Qwen3.5 with LoRA (Low-Rank Adaptation) for domain-specific loan eligibility classification. Demonstrates efficient LLM adaptation for financial use-cases without full model retraining.</p>
+          <div class="project-achievements">
+            <strong>Key Achievements:</strong>
+            <ul>
+              <li>Applied LoRA fine-tuning on Qwen3.5 for financial classification</li>
+              <li>Achieved high accuracy with significantly reduced compute cost</li>
+              <li>Built inference pipeline for real-time loan eligibility decisions</li>
+              <li>Documented fine-tuning methodology and evaluation benchmarks</li>
+            </ul>
+          </div>
+          <div class="badge-row">
+            <span class="badge badge-outline">Qwen3.5</span>
+            <span class="badge badge-outline">LoRA</span>
+            <span class="badge badge-outline">Hugging Face</span>
+            <span class="badge badge-outline">Python</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
       <div class="card project-card fade-up">
         <div class="card-header">
           <div class="project-card-top">
@@ -553,13 +792,13 @@
           <div class="card-title">AI Question Generator (SaaS)</div>
         </div>
         <div class="card-content">
-          <p class="project-desc">Educational institutions and students spend significant time manually preparing practice and exam questions from textbooks. This SaaS platform automatically generates exam-quality questions from uploaded study materials.</p>
+          <p class="project-desc">SaaS platform that automatically generates exam-quality questions from uploaded study materials, saving educational institutions hours of manual preparation time.</p>
           <div class="project-achievements">
             <strong>Key Achievements:</strong>
             <ul>
               <li>Implemented document parsing using PyMuPDF &amp; LlamaIndex</li>
               <li>Created RAG pipeline with ChromaDB embeddings</li>
-              <li>Supports multiple question types (MCQ, True/False, Fill-in-the-Blanks, Short Answer)</li>
+              <li>Supports MCQ, True/False, Fill-in-the-Blanks, Short Answer</li>
               <li>Generates structured question papers within seconds</li>
             </ul>
           </div>
@@ -573,17 +812,17 @@
         </div>
       </div>
 
-      <!-- Project 2 -->
+      <!-- Project 6 -->
       <div class="card project-card fade-up">
         <div class="card-header">
           <div class="project-card-top">
-            <i class="fa-solid fa-bolt project-icon"></i>
+            <i class="fa-solid fa-file-invoice project-icon"></i>
             <span class="badge-outline badge">Python, GenAI, PDF</span>
           </div>
           <div class="card-title">Financial Auditing Intelligence System</div>
         </div>
         <div class="card-content">
-          <p class="project-desc">Financial auditors manually review extensive PDF documents to extract insights and identify risks. This AI-powered system automates the entire auditing workflow using advanced document processing and generative AI.</p>
+          <p class="project-desc">AI-powered system that automates the entire financial auditing workflow using advanced document processing and Gemini 2.5 Flash, significantly reducing manual analysis time.</p>
           <div class="project-achievements">
             <strong>Key Achievements:</strong>
             <ul>
@@ -596,67 +835,8 @@
           <div class="badge-row">
             <span class="badge badge-outline">Python</span>
             <span class="badge badge-outline">GenAI</span>
-            <span class="badge badge-outline">PDF Processing</span>
             <span class="badge badge-outline">Gemini API</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="card project-card fade-up">
-        <div class="card-header">
-          <div class="project-card-top">
-            <i class="fa-solid fa-code project-icon"></i>
-            <span class="badge-outline badge">Python, Automation, Data</span>
-          </div>
-          <div class="card-title">Stock Market Data Segregation</div>
-        </div>
-        <div class="card-content">
-          <p class="project-desc">Automated daily stock-market data segregation system for a trading client. This solution reduces manual processing overhead and enables structured analysis workflows for financial decision-making.</p>
-          <div class="project-achievements">
-            <strong>Key Achievements:</strong>
-            <ul>
-              <li>Automated daily data collection and segregation pipeline</li>
-              <li>Eliminated manual processing, saving significant time daily</li>
-              <li>Structured data format enabling easy analysis and reporting</li>
-              <li>Improved data accuracy and consistency for trading decisions</li>
-            </ul>
-          </div>
-          <div class="badge-row">
-            <span class="badge badge-outline">Python</span>
-            <span class="badge badge-outline">Automation</span>
-            <span class="badge badge-outline">Data Processing</span>
-            <span class="badge badge-outline">Trading</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 4 -->
-      <div class="card project-card fade-up">
-        <div class="card-header">
-          <div class="project-card-top">
-            <i class="fa-solid fa-brain project-icon"></i>
-            <span class="badge-outline badge">Python, React, RAG</span>
-          </div>
-          <div class="card-title">RAG Chunk Studio</div>
-        </div>
-        <div class="card-content">
-          <p class="project-desc">Human-in-the-Loop Chunking Platform for RAG Systems. Traditional chunking methods often disrupt semantic meaning — this tool enables manual refinement and drag-based text selection to optimize retrieval accuracy.</p>
-          <div class="project-achievements">
-            <strong>Key Achievements:</strong>
-            <ul>
-              <li>Implemented 10+ chunking strategies with manual refinement support</li>
-              <li>Developed interactive chunk visualization, editing, and metadata management</li>
-              <li>Improved understanding of how chunk quality impacts LLM responses</li>
-              <li>Enabled efficient preprocessing for enterprise RAG applications</li>
-            </ul>
-          </div>
-          <div class="badge-row">
-            <span class="badge badge-outline">React</span>
-            <span class="badge badge-outline">TypeScript</span>
-            <span class="badge badge-outline">Python</span>
-            <span class="badge badge-outline">RAG</span>
-            <span class="badge badge-outline">ChromaDB</span>
+            <span class="badge badge-outline">PDF Processing</span>
           </div>
         </div>
       </div>
@@ -694,9 +874,9 @@
             <span class="badge badge-outline">Hugging Face</span>
             <span class="badge badge-outline">LangChain</span>
             <span class="badge badge-outline">LangFlow</span>
-            <span class="badge badge-outline">multi-agent system</span>
-            <span class="badge badge-outline">mcp server</span>
-            <span class="badge badge-outline">fine-tuning</span>
+            <span class="badge badge-outline">Multi-Agent Systems</span>
+            <span class="badge badge-outline">MCP Server</span>
+            <span class="badge badge-outline">Fine-tuning</span>
           </div>
         </div>
       </div>
@@ -743,7 +923,7 @@
 
       <!-- Soft Skills -->
       <div class="fade-up" style="grid-column: 1 / -1;">
-        <h3 class="skill-block-title" style="font-family: var(--font-serif); font-size: 1.375rem; font-weight: 700; color: var(--primary); margin-bottom: 1rem;">Soft Skills</h3>
+        <h3 class="skill-block-title">Soft Skills</h3>
         <div class="soft-skills-grid">
           <div class="soft-skill-pill">Team Leadership</div>
           <div class="soft-skill-pill">Mentoring</div>
@@ -753,7 +933,6 @@
           <div class="soft-skill-pill">Public Speaking</div>
         </div>
       </div>
-
 
     </div>
   </div>
@@ -842,7 +1021,76 @@
   </div>
 </footer>
 
+<canvas id="smoke-canvas"></canvas>
+
 <script>
+  // ── Smoky Cursor
+  const canvas = document.getElementById('smoke-canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  let mouse = { x: -200, y: -200 };
+  let particles = [];
+
+  window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    for (let i = 0; i < 4; i++) {
+      particles.push(new SmokeParticle(mouse.x, mouse.y));
+    }
+  });
+
+  class SmokeParticle {
+    constructor(x, y) {
+      this.x = x + (Math.random() - 0.5) * 10;
+      this.y = y + (Math.random() - 0.5) * 10;
+      this.size = Math.random() * 18 + 8;
+      this.speedX = (Math.random() - 0.5) * 1.2;
+      this.speedY = -(Math.random() * 1.5 + 0.5);
+      this.life = 1.0;
+      this.decay = Math.random() * 0.018 + 0.012;
+      // cyan/blue-tinted smoke matching portfolio accent
+      const r = Math.floor(Math.random() * 40);
+      const g = Math.floor(180 + Math.random() * 60);
+      const b = Math.floor(210 + Math.random() * 45);
+      this.color = `${r},${g},${b}`;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.speedX *= 0.98;
+      this.speedY *= 0.97;
+      this.size += 0.35;
+      this.life -= this.decay;
+    }
+    draw() {
+      ctx.save();
+      const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+      gradient.addColorStop(0,   `rgba(${this.color},${this.life * 0.22})`);
+      gradient.addColorStop(0.5, `rgba(${this.color},${this.life * 0.10})`);
+      gradient.addColorStop(1,   `rgba(${this.color},0)`);
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function animateSmoke() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles = particles.filter(p => p.life > 0);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateSmoke);
+  }
+  animateSmoke();
+
   // ── Hamburger toggle
   const hamburger = document.getElementById('hamburger');
   const navLinks  = document.getElementById('navLinks');
